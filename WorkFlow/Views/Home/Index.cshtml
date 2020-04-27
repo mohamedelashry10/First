@@ -1,0 +1,183 @@
+﻿@model Home;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<div class="col-md-6 ui-sortable">
+
+    <div class="panel panel-inverse" data-sortable-id="table-basic-1">
+        <div class="panel-heading">
+
+            <div class="panel-heading-btn">
+                <a class="btn btn-xs btn-icon btn-circle btn-info" @*data-toggle="modal" data-target="#ApplicationModal"*@ onclick="ApplicationModal()"><i class="fa fa-plus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove" data-original-title="" title=""><i class="fa fa-times"></i></a>
+            </div>
+            <h4 class="panel-title"> Applictions Table</h4>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody id="one">
+                    @Html.Partial("_ListApplication", Model.ApplicationViewModel)
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-6 ui-sortable">
+
+    <div class="panel panel-inverse" data-sortable-id="table-basic-1">
+        <div class="panel-heading">
+
+            <div class="panel-heading-btn">
+
+                <a  class="btn btn-xs btn-icon btn-circle btn-info" @*data-toggle="modal" data-target="#WorkFlowModal"*@ onclick="WorkFlowModal()"><i class="fa fa-plus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove" data-original-title="" title=""><i class="fa fa-times"></i></a>
+            </div>
+            <h4 class="panel-title"> WorkFlow Table</h4>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Application Name</th>
+                    </tr>
+                </thead>
+                <tbody id="two">
+                    @Html.Partial("_ListWorkFlow", Model.WorkFlowViewModel)
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-6 ui-sortable">
+
+    <div class="panel panel-inverse" data-sortable-id="table-basic-1">
+        <div class="panel-heading">
+
+            <div class="panel-heading-btn">
+
+                <a  class="btn btn-xs btn-icon btn-circle btn-info" onclick="StepModal()"><i class="fa fa-plus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove" data-original-title="" title=""><i class="fa fa-times"></i></a>
+            </div>
+            <h4 class="panel-title"> Steps Table</h4>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+
+                    <tr>
+                        <th>Name</th>
+                        <th>WorkFlow Name</th>
+                        <th>StepNumber</th>
+                        <th>ISFinalStep</th>
+                    </tr>
+                </thead>
+                <tbody id="three">
+                    @Html.Partial("_ListStep", Model.StepViewModel)
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="modal" id="PopupModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="color:#036"> </h2>
+            </div>
+            <div class="modal-body" >
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var RegisterForm = new Object();
+    RegisterForm.onSuccess = function () {
+    $('#PopupModal').modal('hide');
+
+}
+function ApplicationModal() {
+    $.ajax({
+        url: "/Application/Add/",
+        method: "GET",
+        success: function (Application) {
+            $(".modal-body").html(Application)
+            $("#PopupModal").modal("show")
+            $.validator.unobtrusive.parse($("#ApplicationValidationId"))
+
+        }
+    });
+}
+
+
+function WorkFlowModal() {
+    $.ajax({
+        url: "/WorkFlow/add/",
+        method: "GET",
+        success: function (WorkFlow) {
+            $(".modal-body").html(WorkFlow)
+            $("#PopupModal").modal("show")
+            $.validator.unobtrusive.parse($("#WorkFlowValidationId"))
+        }
+    })
+
+};
+function StepModal() {
+    $.ajax({
+        url: "/Step/add/",
+        method: "GET",
+        success: function (Step) {
+            $(".modal-body").html(Step)
+            $("#PopupModal").modal("show")
+            $.validator.unobtrusive.parse($("#stepValidationId"))
+
+        }
+    })
+
+};
+
+
+</script>

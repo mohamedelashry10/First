@@ -1,0 +1,12 @@
+﻿@using WorkFlow.application.ViewModels;
+@model StepViewModel ;
+
+@foreach (var item in Model.steps)
+{
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.WorkFlow.Name</td>
+        <td>@item.StepOrder</td>
+        <td>@item.IsFinalStep</td>
+    </tr>
+}

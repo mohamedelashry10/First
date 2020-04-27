@@ -1,0 +1,28 @@
+﻿@using WorkFlow.application.ViewModels;
+@model StepViewModel;
+
+<form method="post" action="/Step/Add"
+      data-ajax="true"
+      data-ajax-mode="replace"
+      data-ajax-update="#three"
+      id="stepValidationId"
+      data-ajax-success="RegisterForm.onSuccess">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input type="text" asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input type="text" asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Name">WorkFlow</label>
+        <select asp-for="WorkFlowId" asp-items="@(new SelectList(@ViewBag.ListOfWorkFlow,"Id","Name"))" class="form-control"></select>
+    </div>
+
+
+    <input type="submit" class="btn btn-primary" value="Add Step" />
+
+</form>
+

@@ -1,0 +1,13 @@
+﻿@using WorkFlow.application.ViewModels;
+@model ApplicationViewModel ;
+
+
+    @foreach (var item in Model.Applications)
+    {
+        <tr>
+            <td>@item.Name</td>
+        </tr>
+    }
+    
+
+

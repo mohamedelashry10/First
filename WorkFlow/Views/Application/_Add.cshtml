@@ -1,0 +1,42 @@
+﻿@using WorkFlow.application.ViewModels;
+@model ApplicationViewModel
+
+
+                <form method="post" action="/Application/Add"
+                      data-ajax="true"
+                      data-ajax-update="#one"
+                      data-ajax-mode="replace"
+                      id="ApplicationValidationId"
+                      data-ajax-success="RegisterForm.onSuccess">
+
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input type="text" asp-for="Name" class="form-control">
+                        <span asp-validation-for="Name"></span>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Add Application" />
+
+                </form>
+
+                <script>
+    $(document).ready(function () {
+        $(".btn-primary").click(function () {
+            $(".form-control").each(function () {
+                if ($(this).val() == '')
+                    $(this).css('border-color', 'red')
+                else
+                    $(this).css('border-color', 'white')
+            })
+        })
+
+        $(".form-control").keypress(function () {
+            $(this).css('border-color','')
+        })
+        $(".form-control").blur(function () {
+            if ($(this).val() == "")
+                $(this).css('border-color', 'red')
+            else
+                $(this).css("border-color",'')
+        })
+    })
+                </script>

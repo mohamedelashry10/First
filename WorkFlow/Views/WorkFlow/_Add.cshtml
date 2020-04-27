@@ -1,0 +1,30 @@
+﻿@using WorkFlow.application.ViewModels;
+@model WorkFlowViewModel
+
+<form method="post" action="/WorkFlow/Add"
+      data-ajax="true"
+      data-ajax-update="#two"
+      data-ajax-mode="replace"
+      id="WorkFlowValidationId"
+      data-ajax-success="RegisterForm.onSuccess">
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input type="text" asp-for="Name" class="form-control">
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input type="text" asp-for="Description" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Application Name</label>
+        <select asp-for="ApplicationId" asp-items="@(new SelectList(@ViewBag.ListOfApplication,"Id", "Name"))" class="form-control"></select>
+
+    </div>
+
+
+    <input type="submit" class="btn btn-primary" value="Add WorkFlow" />
+
+</form>
+
